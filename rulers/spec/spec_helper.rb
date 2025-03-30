@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "rulers"
+require "rack/test"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -12,4 +14,6 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.include Rack::Test::Methods
 end
