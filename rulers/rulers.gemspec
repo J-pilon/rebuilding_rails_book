@@ -21,7 +21,9 @@ Gem::Specification.new do |spec|
 
   spec.files = `git ls-files -z`.split("\x0")
 
-  spec.add_runtime_dependency "rack", "~> 2.2"
-  spec.add_runtime_dependency "webrick"
+  spec.add_dependency "rack", "~> 2.2"
+  spec.add_dependency "webrick"
+  spec.add_dependency "erubis"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "rack-test"
 end
