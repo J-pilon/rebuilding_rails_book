@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "rulers/version"
-# require "rulers/routing"
-require "rulers/array"
+require "rulers/version"
+require "rulers/routing"
+require "rulers/util"
+require "rulers/dependencies"
+
 
 module Rulers
   class App
@@ -25,14 +27,6 @@ module Rulers
       rescue => e
         [500, {"Content-Type" => "text/html"}, ["Error 500: #{e}"]]
       end
-    end
-
-    def get_cont_and_act(env)
-      _, cont, act, after = env["PATH_INFO"].split("/", 4)
-
-      cont = cont.capitalize
-      cont += "Controller"
-      [Object.const_get(cont), act]
     end
 
     def favicon_path?(path)
