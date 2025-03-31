@@ -4,7 +4,7 @@ require "rulers/version"
 require "rulers/routing"
 require "rulers/util"
 require "rulers/dependencies"
-
+require "rulers/controller"
 
 module Rulers
   class App
@@ -35,16 +35,6 @@ module Rulers
 
     def root_path?(path)
       path == "/"
-    end
-  end
-
-  class Controller
-    def initialize(env)
-      @env = env
-    end
-
-    def env
-      @env
     end
   end
 end
