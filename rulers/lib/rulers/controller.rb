@@ -1,7 +1,10 @@
-require 'erubis'
+require "erubis"
+require "rulers/file_model"
 
 module Rulers
   class Controller
+    include Rulers::Model
+
     def initialize(env)
       @env = env
     end
@@ -21,6 +24,14 @@ module Rulers
       template = File.read(filename)
       eruby = Erubis::Eruby.new(template)
       eruby.result(locals.merge(:env => env))
+    end
+
+    def request
+      @request ||= Rack::Request.new(env)
+    end
+
+    def params
+      request.params
     end
   end
 end
