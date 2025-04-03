@@ -26,7 +26,7 @@ module Rulers
         text = cont.send(act)
         [ 200, {"Content-Type" => "text/html"}, [text] ]
       rescue => e
-        [500, {"Content-Type" => "text/html"}, ["Error 500: #{e}"]]
+        [ 500, {"Content-Type" => "text/html"}, ["Error 500: #{e}"] ]
       end
     end
 
@@ -36,6 +36,20 @@ module Rulers
 
     def root_path?(path)
       path == "/"
+    end
+
+    def actionable_request?
+      true
+    end
+
+    def redirect_to(path)
+      if path.is_a?(Symbol)
+        cont = self.class.to_s.gsub("Controller", "").downcase
+        act = path.to_s
+        path = "/#{cont}/#{act}"
+      end
+
+      [ 302, {"Content-Type" => "text/html", "Location" => path.to_s}, [] ]
     end
   end
 end

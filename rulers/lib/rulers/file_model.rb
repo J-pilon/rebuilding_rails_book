@@ -11,12 +11,29 @@ module Rulers
         @hash = MultiJson.load(obj)
       end
 
+      def hash
+        @hash
+      end
+
       def [](name)
         @hash[name.to_s]
       end
 
       def []=(name, val)
         @hash[name.to_s] = val
+      end
+
+      def update(attrs)
+        begin
+          @hash.merge!(attrs.transform_keys(&:to_s))
+          contents = MultiJson.dump(@hash)
+          File.open(@filename, "w") do |f|
+            f.write(contents)
+          end
+          FileModel.new(@filename)
+        rescue => e
+          raise "Failed to update file model: #{e.message}"
+        end
       end
 
       def self.find(id)
