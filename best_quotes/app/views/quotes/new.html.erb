@@ -1,0 +1,27 @@
+<form action=<%= "/quotes/create" %> method="post">
+  <div>
+    <label for="submitter">Submitter:</label>
+    <input type="text" id="submitter" name="submitter">
+  </div>
+
+  <br/>
+
+  <div>
+    <label for="quote">Quote:</label>
+    <textarea id="quote" name="quote"></textarea>
+  </div>
+
+  <br/>
+
+  <div>
+    <label for="attribution">Attribution:</label>
+    <input type="text" id="attribution" name="attribution">
+  </div>
+
+  <br/>
+
+  <div>
+    <button type="submit">Create Quote</button>
+    <a href="/quotes/index">Cancel</a>
+  </div>
+</form>
