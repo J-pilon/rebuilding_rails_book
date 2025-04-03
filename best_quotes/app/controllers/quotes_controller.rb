@@ -13,24 +13,34 @@ class QuotesController < Rulers::Controller
     render(:quote, :obj => quote_1)
   end
 
-  def new_quote
-    attrs = {
-      "submitter" => "Josiah",
-      "quote" => "Shake your booty",
-      "attribution" => "Josiah"
-    }
-    m = FileModel.create(attrs)
-    render(:quote, :obj => m)
+  def new
+    render(:new)
   end
 
-  def edit_quote
+  def create
+    if request.post?
+      data = request.POST
+
+      begin
+        quote = FileModel.create(data)
+        render(:quote, :obj => quote)
+      rescue => e
+        puts "Error: #{e}"
+      end
+    else
+      quotes = FileModel.all
+      render(:index, :quotes => quotes)
+    end
+  end
+
+  def edit
     quote = FileModel.find(id)
 
     puts quote.hash
     render(:edit, :obj => quote)
   end
 
-  def update_quote
+  def update
     if request.post?
       data = request.POST
 
@@ -48,16 +58,21 @@ class QuotesController < Rulers::Controller
   end
 
   def destroy
-    raise "Error: parameter id is #{id}" if id == nil
+    if request.post?
+      begin
+        raise "Parameter id is #{id}" if id == nil
 
-    if FileModel.delete(id)
-      puts "FILE DELETED"
+        if FileModel.delete(id)
+          puts "FILE DELETED"
+        end
+
+        quotes = FileModel.all
+        render(:index, :quotes => quotes)
+      rescue => e
+        puts "Error: #{e}"
+        ""
+      end
     end
-
-    render(:index, :quotes => quotes)
-  rescue => e
-    puts "Error: #{e}"
-    ""
   end
 
   def exception

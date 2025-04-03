@@ -1,3 +1,11 @@
 <% quotes.each do |q| %>
-  <p><%= q["quote"] %></p>
+  <div>
+    <p><%= q["quote"] %></p>
+    <a href=<%= "/quotes/edit?id=#{q["id"]}" %>>edit</a>
+    <form action=<%= "/quotes/destroy?id=#{q["id"]}" %> method="post">
+      <button type="submit">delete</button>
+    </form>
+  </div>
+
+  <br/><br/>
 <% end %>

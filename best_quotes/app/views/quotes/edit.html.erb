@@ -1,4 +1,4 @@
-<form action="/quotes/update_quote?id=3" method="post">
+<form action=<%= "/quotes/update?id=#{obj["id"]}" %> method="post">
   <div>
     <label for="submitter">Submitter:</label>
     <input type="text" id="submitter" name="submitter" value=<%= obj["submitter"] %>>
@@ -22,5 +22,6 @@
 
   <div>
     <button type="submit">Update Quote</button>
+    <a href="/quotes/index">Cancel</a>
   </div>
 </form>

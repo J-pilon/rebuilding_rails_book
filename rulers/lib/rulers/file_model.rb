@@ -16,6 +16,8 @@ module Rulers
       end
 
       def [](name)
+        return @id if name == "id"
+
         @hash[name.to_s]
       end
 
