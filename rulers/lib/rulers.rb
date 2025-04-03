@@ -24,7 +24,12 @@ module Rulers
         klass, act = get_cont_and_act(env)
         cont = klass.new(env)
         text = cont.send(act)
-        [ 200, {"Content-Type" => "text/html"}, [text] ]
+        res = cont.get_response
+        if res
+          [res.status, res.headers, [res.body].flatten]
+        else
+          [ 200, {"Content-Type" => "text/html"}, [text] ]
+        end
       rescue => e
         [ 500, {"Content-Type" => "text/html"}, ["Error 500: #{e}"] ]
       end
