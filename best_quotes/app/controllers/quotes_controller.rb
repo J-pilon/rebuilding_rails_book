@@ -1,7 +1,8 @@
 class QuotesController < Rulers::Controller
   def show
+    ua = request.user_agent
     q = FileModel.find(1)
-    render(:show, :obj => q)
+    render_response(:show, :obj => q, :ua => ua)
   end
 
   def index
