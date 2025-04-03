@@ -1,16 +1,12 @@
 class QuotesController < Rulers::Controller
+  def show
+    q = FileModel.find(1)
+    render(:show, :obj => q)
+  end
+
   def index
     quotes = FileModel.all
     render(:index, :quotes => quotes)
-  end
-
-  def a_quote
-    render(:a_quote, :noun => :winking)
-  end
-
-  def quote_1
-    quote_1 = FileModel.find(1)
-    render(:quote, :obj => quote_1)
   end
 
   def new
@@ -22,8 +18,8 @@ class QuotesController < Rulers::Controller
       data = request.POST
 
       begin
-        quote = FileModel.create(data)
-        render(:quote, :obj => quote)
+        q = FileModel.create(data)
+        render(:quote, :obj => q)
       rescue => e
         puts "Error: #{e}"
       end
@@ -34,10 +30,8 @@ class QuotesController < Rulers::Controller
   end
 
   def edit
-    quote = FileModel.find(id)
-
-    puts quote.hash
-    render(:edit, :obj => quote)
+    q = FileModel.find(id)
+    render(:edit, :obj => q)
   end
 
   def update
@@ -46,8 +40,8 @@ class QuotesController < Rulers::Controller
 
       begin
         f = FileModel.find(id)
-        quote = f.update(data)
-        render(:quote, :obj => quote)
+        q = f.update(data)
+        render(:show, :obj => q)
       rescue => e
         puts "Error: #{e}"
       end
