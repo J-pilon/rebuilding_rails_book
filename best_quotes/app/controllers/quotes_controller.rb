@@ -1,8 +1,8 @@
 class QuotesController < Rulers::Controller
   def show
     ua = request.user_agent
-    q = FileModel.find(1)
-    render_response(:show, :obj => q, :ua => ua)
+    q = FileModel.find(id)
+    render(:show, :obj => q, :ua => ua)
   end
 
   def index
@@ -20,7 +20,7 @@ class QuotesController < Rulers::Controller
 
       begin
         q = FileModel.create(data)
-        render(:quote, :obj => q)
+        render(:show, :obj => q)
       rescue => e
         puts "Error: #{e}"
       end

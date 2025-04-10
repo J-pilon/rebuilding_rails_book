@@ -13,7 +13,7 @@ module Rulers
       path_info = env["PATH_INFO"]
 
       if favicon_path?(path_info)
-        return [404, {"Content-Type": "text/html"}, []]
+        return [404, {"Content-Type" => "text/html"}, []]
       end
 
       if root_path?(path_info)
@@ -23,13 +23,12 @@ module Rulers
       begin
         klass, act = get_cont_and_act(env)
         cont = klass.new(env)
-        text = cont.send(act)
+        cont.dispatch(act)
         res = cont.get_response
-        if res
-          [res.status, res.headers, [res.body].flatten]
-        else
-          [ 200, {"Content-Type" => "text/html"}, [text] ]
-        end
+
+        raise "Invalid response" unless res
+
+        [res.status, res.headers, [res.body].flatten]
       rescue => e
         [ 500, {"Content-Type" => "text/html"}, ["Error 500: #{e}"] ]
       end
