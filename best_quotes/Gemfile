@@ -3,4 +3,5 @@ gem "rulers", path: "../rulers"
 
 group :development do
   gem "rerun"
+  gem "debug", ">= 1.0.0"
 end
