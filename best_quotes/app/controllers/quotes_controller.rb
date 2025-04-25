@@ -1,12 +1,12 @@
 class QuotesController < Rulers::Controller
   def show
     ua = request.user_agent
-    q = FileModel.find(id)
+    q = Quote.find(id)
     render(:show, :obj => q, :ua => ua)
   end
 
   def index
-    quotes = FileModel.all
+    quotes = Quote.all
     render(:index, :quotes => quotes)
   end
 
@@ -19,19 +19,19 @@ class QuotesController < Rulers::Controller
       data = request.POST
 
       begin
-        q = FileModel.create(data)
+        q = Quote.create(data)
         render(:show, :obj => q)
       rescue => e
         puts "Error: #{e}"
       end
     else
-      quotes = FileModel.all
+      quotes = Quote.all
       render(:index, :quotes => quotes)
     end
   end
 
   def edit
-    q = FileModel.find(id)
+    q = Quote.find(id)
     render(:edit, :obj => q)
   end
 
@@ -40,14 +40,14 @@ class QuotesController < Rulers::Controller
       data = request.POST
 
       begin
-        f = FileModel.find(id)
+        f = Quote.find(id)
         q = f.update(data)
         render(:show, :obj => q)
       rescue => e
         puts "Error: #{e}"
       end
     else
-      quotes = FileModel.all
+      quotes = Quote.all
       render(:index, :quotes => quotes)
     end
   end
@@ -57,11 +57,11 @@ class QuotesController < Rulers::Controller
       begin
         raise "Parameter id is #{id}" if id == nil
 
-        if FileModel.delete(id)
+        if Quote.delete(id)
           puts "FILE DELETED"
         end
 
-        quotes = FileModel.all
+        quotes = Quote.all
         render(:index, :quotes => quotes)
       rescue => e
         puts "Error: #{e}"
