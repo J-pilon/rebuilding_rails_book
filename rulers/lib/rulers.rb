@@ -6,6 +6,7 @@ require "rulers/util"
 require "rulers/dependencies"
 require "rulers/controller"
 require "rulers/sqlite_model"
+require "rulers/benchmark"
 
 module Rulers
   class App
